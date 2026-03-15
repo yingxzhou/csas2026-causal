@@ -1,0 +1,78 @@
+---
+title: "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB"
+author: "Ying Zhou"
+format:
+  html: default
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Workshop Overview
+
+This workshop introduces core ideas in causal inference through an applied sports analytics example. Using the MLB infield shift as a motivating case study, we show how observational data can be used to evaluate defensive strategies and estimate their effects on game outcomes.
+
+## Learning Objectives
+
+By the end of the workshop, participants will be able to:
+
+1. Explain the difference between association and causation in sports analytics.
+2. Describe confounding using the potential outcomes framework and causal diagrams.
+3. Understand the intuition behind matching, weighting, and instrumental variables.
+4. Interpret a causal analysis of the MLB infield shift.
+
+## Why This Question Is Causal
+
+Suppose we observe that teams using the infield shift tend to allow fewer ground-ball hits. Does that mean the shift causes better defensive outcomes?
+
+Not necessarily. Teams do not choose shifts at random. They are more likely to shift against strong pull hitters or in particular game situations. This creates confounding, so a simple comparison may not identify the causal effect of the shift.
+
+## Core Concepts
+
+### Potential Outcomes
+
+For each play, we can imagine two possible outcomes:
+- what would happen if the defense shifts
+- what would happen if the defense does not shift
+
+The causal effect is the comparison between these two potential outcomes.
+
+### Confounding
+
+A variable is a confounder if it influences both:
+- whether the team uses the shift
+- the defensive outcome
+
+Examples may include batter tendencies, pitch characteristics, count, outs, and game situation.
+
+### Causal Diagrams
+
+A causal diagram helps us represent relationships among:
+- treatment
+- outcome
+- confounders
+
+This helps us think carefully about what needs to be adjusted for.
+
+## Methods
+
+### Matching
+
+Match shifted and unshifted plays with similar observed characteristics.
+
+### Weighting
+
+Use weights to create a pseudo-population in which treatment assignment is more balanced.
+
+### Instrumental Variables
+
+Use a source of variation that affects shift use but does not directly affect the outcome except through the shift.
+
+## Case Study: MLB Infield Shift
+
+We use the infield shift as a motivating case study for evaluating defensive strategy using observational data.
+
+## Wrap-Up
+
+Causal inference provides tools for moving from descriptive sports analytics to strategy evaluation.
