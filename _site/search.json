@@ -1,0 +1,247 @@
+[
+  {
+    "objectID": "workshop.html#section",
+    "href": "workshop.html#section",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "",
+    "text": "Rogers Centre, home of the Toronto Blue Jays  (Source: Wikimedia Commons) \n\nThis workshop introduces core ideas in causal inference through a sports analytics case study.\nOur main example is the MLB infield shift. We will study how causal methods can be used to evaluate whether the shift actually suppresses offensive production.\n\nReference\nMarkes, S., Wang, L., Gronsbell, J., and Evans, K.\nCausal effect of the infield shift in the MLB  arXiv:2409.03940"
+  },
+  {
+    "objectID": "workshop.html#learning-objectives",
+    "href": "workshop.html#learning-objectives",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of the workshop, participants will be able to:\n\nExplain why evaluating the infield shift is a causal question rather than a purely descriptive one\nDescribe treatment, outcome, confounding, and effect modification in this setting\nUnderstand the intuition behind matching and weighting\nInterpret the main findings of the paper and the assumptions behind each method"
+  },
+  {
+    "objectID": "workshop.html#baseball-in-one-minute",
+    "href": "workshop.html#baseball-in-one-minute",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "Baseball in One Minute",
+    "text": "Baseball in One Minute\nTwo teams, two roles\n\nOffense: tries to score runs\nDefense: tries to prevent runs\n\n\nWhat happens on each play\n\nThe pitcher throws the ball\nThe batter tries to hit it\nIf the ball is put in play, the defense tries to get the batter out\n\n\n\nHow a team scores\nA run is scored when a player safely advances around the bases and returns to home plate."
+  },
+  {
+    "objectID": "workshop.html#why-positioning-matters",
+    "href": "workshop.html#why-positioning-matters",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "Why Positioning Matters",
+    "text": "Why Positioning Matters\n\nHitters often tend to hit the ball toward certain parts of the field. So the defense may reposition its fielders before the pitch.\nThat is why defensive alignment matters.\n\n\n\n\n\nIn a standard alignment, there are two infielders on each side of second base.\nIn a infield shift, the defense moves three infielders to one side.\nTeams do this because some batters tend to hit the ball more often to one side of the field."
+  },
+  {
+    "objectID": "workshop.html#infield-shift-background",
+    "href": "workshop.html#infield-shift-background",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "Infield Shift: Background",
+    "text": "Infield Shift: Background\n\nThe infield shift was not a small tactical tweak.\nIt became one of the defining features of modern MLB defense.\n\nTeams increasingly overloaded one side of the infield\nShift usage roughly tripled from 2015 to 2022\nIn 2023, MLB restricted the shift by rule\n\n\n\nThe common belief was simple:\nthe shift was hurting offense.\nBut a belief is not the same as evidence.\nDid the shift actually cause lower offensive production?"
+  },
+  {
+    "objectID": "workshop.html#formation-of-the-question",
+    "href": "workshop.html#formation-of-the-question",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "Formation of the Question",
+    "text": "Formation of the Question\n\nTreatment \\(T\\)\nThe treatment is fielding alignment:\n\n\n\\(\\color{blue}{T = 1}\\): shifted alignment\n\n\n\\(\\color{blue}{T = 0}\\): non-shifted alignment\n\n\nThe paper uses Statcast’s public fielding alignment variable and combines standard and strategic alignments into the non-shifted category.\n\n\nOutcome \\(Y\\)\nThe outcome is scoring potential, measured through change in run expectancy. \\[\n\\Delta RE = RE_\\text{final} - RE_\\text{initial} + \\Delta score\n\\]"
+  },
+  {
+    "objectID": "workshop.html#this-is-not-just-an-association-question",
+    "href": "workshop.html#this-is-not-just-an-association-question",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "This Is Not Just an Association Question",
+    "text": "This Is Not Just an Association Question\nSuppose the data show:\nwhen teams use the shift, the batting team tends to score fewer expected runs.\nIn statistical terms, this means we might observe: \\[E[Y \\mid T = 1] &lt; E[Y \\mid T = 0]\\]\nWe might even run a simple test, such as a t-test, and find a statistically significant difference between the average outcome in the treated group and untreated group.\n\nIt is tempting to say:\n“The shift caused offense to go down.”\nBut that conclusion is too quick."
+  },
+  {
+    "objectID": "workshop.html#the-causal-question",
+    "href": "workshop.html#the-causal-question",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "The Causal Question",
+    "text": "The Causal Question\nThe paper asks:\nHas the infield shift been effective at causing suppression of expected runs when it has been deployed?\nThis is a causal question because we want to compare:\n\nwhat happened when the shift was used\nwhat would have happened in the same situation had the shift not been used\n\nFor a given plate appearance, we want to compare two possible worlds:\n\nShift: the defense uses the infield shift\nNo shift: the defense stays in a standard alignment"
+  },
+  {
+    "objectID": "workshop.html#potential-outcomes",
+    "href": "workshop.html#potential-outcomes",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "Potential Outcomes",
+    "text": "Potential Outcomes\n\n\\(\\color{blue}{Y(1)}\\): = the outcome if the defense shifts\n\\(\\color{blue}{Y(0)}\\): = the outcome if the defense does not shift\n\n\nThe individual causal effect for that plate appearance is \\[\\color{blue}{Y_i(1) - Y_i(0)}\\]\nThe average treatment effect (ATE) is \\[\\color{blue}{E[Y(1)-Y(0)]}\\]\nThe effect of treatment on the treated (ETT) is \\[\\color{blue}{E[Y(1)-Y(0)\\mid T=1]}\\]"
+  },
+  {
+    "objectID": "workshop.html#the-fundamental-problem",
+    "href": "workshop.html#the-fundamental-problem",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "The Fundamental Problem",
+    "text": "The Fundamental Problem\n\nFor any single plate appearance, we only observe \\(\\color{red}{one}\\) of these two outcomes: either the defense shifted, or it did not.\nWe never observe both for the same play.\n\n\nConsistency assumption: \\[\nY = TY(1) + (1-T)Y(0)\n\\]\n\n\nTo estimate ATE, \\[\\begin{align*}\n\\hat{E}[Y(1) - Y(0)] = \\frac{1}{n}\\sum_{i=1}^n[Y_i(1) - Y_i(0)]\n\\end{align*}\\] But we don’t observe \\(Y_i(1)-Y_i(0)\\) for any \\(i\\), so we can’t calculate the average."
+  },
+  {
+    "objectID": "workshop.html#why-randomized-trials-are-ideal",
+    "href": "workshop.html#why-randomized-trials-are-ideal",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "Why Randomized Trials are Ideal",
+    "text": "Why Randomized Trials are Ideal\n\\[\n{E}[Y(1) - Y(0)] = {E}[Y(1)] - {E}[Y(0)]\n\\] Can we estimate \\({E}[Y(1)]\\) and \\({E}[Y(0)]\\) separately instead?\n\nImagine an experiment where, before each plate appearance, we randomly assign:\n\n\nsome plays to use the shift\n\n\nsome plays to use the standard alignment\n\n\nIn math, we have \\(T\\) is independent of any other variable, thus \\[\nT\\perp Y(0), Y(1)\n\\] \\(E[Y(t)] = E[Y(t)\\mid T] = E[Y(t)\\mid T=t] = E[Y\\mid T=t]\\)"
+  },
+  {
+    "objectID": "workshop.html#intuition-behind-randomized-trials",
+    "href": "workshop.html#intuition-behind-randomized-trials",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "Intuition Behind Randomized Trials",
+    "text": "Intuition Behind Randomized Trials\n\n\\[\\hat{E}[Y(1) - Y(0)] = \\hat{E}(Y\\mid T=1) - \\hat{E}(Y\\mid T=0)\\] ATE can be estimated by the difference between average outcomes in treated and untreated groups.\n\n\nWait a minute… We said earlier we could not simply comparing the average outcomes?\n\n\nHere we can do this because of randomization.\nBy randomizing the treatment, the shifted and non-shifted groups would be comparable on average.\nSo a difference in average outcomes would have a natural causal interpretation."
+  },
+  {
+    "objectID": "workshop.html#what-happens-in-reality",
+    "href": "workshop.html#what-happens-in-reality",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "What Happens in Reality?",
+    "text": "What Happens in Reality?\n\nIn MLB, teams do \\(\\color{red}{not}\\) randomize the shift.\nThey choose the shift on purpose, usually when they think it will help. This may depend on:\n\n\nbatter tendencies\n\n\npitcher characteristics\n\n\ngame situation\n\n\nteam preferences\n\n\n\n\nSo the shifted plays and the non-shifted plays are already different before the pitch is thrown.\nA simple comparison may reflect both:\n\n\nthe true effect of the shift\n\n\nthe effect of the situation in which the shift was chosen"
+  },
+  {
+    "objectID": "workshop.html#confounding",
+    "href": "workshop.html#confounding",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "Confounding",
+    "text": "Confounding\n\n\ntreatment (T): fielding alignment\noutcome (Y): scoring chance / expected runs\nconfounders (C): batter attributes, pitcher attributes, game context, etc"
+  },
+  {
+    "objectID": "workshop.html#assumptions-on-confounding",
+    "href": "workshop.html#assumptions-on-confounding",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "Assumptions on Confounding",
+    "text": "Assumptions on Confounding\n\nFor randomized trials, there is no confounder, because treatment \\(T\\) is independent of anything.\nFor observational studies, we assume \\[\nT\\perp Y(0), Y(1) \\mid C\n\\] and we observe all confounders."
+  },
+  {
+    "objectID": "workshop.html#why-not-just-compare-exactly-the-same-situations",
+    "href": "workshop.html#why-not-just-compare-exactly-the-same-situations",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "Why Not Just Compare Exactly the Same Situations?",
+    "text": "Why Not Just Compare Exactly the Same Situations?\n\nA natural idea is:\n\ncompare shifted and non-shifted plate appearances under exactly the same conditions\n\nFor example, we might try to match plays with the same:\nbatter, pitcher, count, baserunner situation, inning and score…\n\n\n But this is often too restrictive.\nEven with several MLB seasons of data, many exact combinations occur very rarely.\nSo if we insist on exact matching, we may be left with very little usable data."
+  },
+  {
+    "objectID": "workshop.html#matching-compare-similar-situations",
+    "href": "workshop.html#matching-compare-similar-situations",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "Matching: Compare Similar Situations",
+    "text": "Matching: Compare Similar Situations\nA more practical idea\nInstead of requiring plays to be identical, we look for plays that are similar in important observed characteristics.\n\nMain idea\nFor each shifted plate appearance, find one or more non-shifted plate appearances that look similar in observed variables.\nThen compare their outcomes.\nIn this setting, we might match on\n\n\nbatter attributes\n\n\npitcher attributes\n\n\ngame context\n\n\nother observed pre-pitch information"
+  },
+  {
+    "objectID": "workshop.html#data-source",
+    "href": "workshop.html#data-source",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "Data Source",
+    "text": "Data Source\nThe paper uses publicly available MLB Statcast data from 2015 to 2022.\nThe data are pitch-level observations and include:\n\nbatter and pitcher identifiers\npre-pitch game context\nfielding alignment\npitch characteristics\noutcome-related information\n\nThis is observational data, not randomized experimental data."
+  },
+  {
+    "objectID": "workshop.html#data-source-simulated",
+    "href": "workshop.html#data-source-simulated",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "Data Source (Simulated)",
+    "text": "Data Source (Simulated)\nBecause we do not use the real Statcast data here, we will illustrate the method using a simulated observational dataset with the same basic structure.\n\nset.seed(123)\n\nn &lt;- 300\n\n# Covariates\npull &lt;- runif(n)                      # batter pull tendency\nlefty &lt;- rbinom(n, 1, 0.4)            # 1 = left-handed batter\ntwo_strikes &lt;- rbinom(n, 1, 0.4)\nrunner1 &lt;- rbinom(n, 1, 0.3)\nouts &lt;- sample(0:2, n, replace = TRUE)\n\n# Treatment assignment (observational, not randomized)\nlogit_p &lt;- -1 + 2*pull + 0.8*lefty + 0.6*two_strikes + 0.4*runner1\np_shift &lt;- 1 / (1 + exp(-logit_p))\nT &lt;- rbinom(n, 1, p_shift)\n\n# Heterogeneous treatment effect:\n# right-handed batters: effect = -0.05\n# left-handed batters:  effect = -0.15\ntau_right &lt;- -0.05\ntau_left  &lt;- -0.15\n\ntau_i &lt;- ifelse(lefty == 1, tau_left, tau_right)\n\n# Outcome\nY &lt;- 0.4*pull - 0.2*two_strikes + 0.15*runner1 - 0.08*outs + \n     0.05*lefty + tau_i*T + rnorm(n, 0, 0.1)\n\ndata &lt;- data.frame(\n  pull, lefty, two_strikes, runner1, outs, T, Y\n)"
+  },
+  {
+    "objectID": "workshop.html#nearest-neighbor-matching",
+    "href": "workshop.html#nearest-neighbor-matching",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "Nearest-Neighbor Matching",
+    "text": "Nearest-Neighbor Matching\n\nStep 1: Describe each play\nFor every plate appearance, record observed variables \\(C\\), such as:\nbatter pull tendency, batter handedness, count (two strikes), runners on base, outs\nThese summarize the situation before the pitch.\n\n\n\n\nhead(data, 6)\n\n       pull lefty two_strikes runner1 outs T          Y\n1 0.2875775     1           0       1    0 1  0.1909112\n2 0.7883051     0           1       0    1 0  0.2711648\n3 0.4089769     1           0       1    0 0  0.4264738\n4 0.8830174     1           0       0    0 1  0.2678087\n5 0.9404673     1           0       0    0 1  0.3695254\n6 0.0455565     0           1       0    0 0 -0.1727972"
+  },
+  {
+    "objectID": "workshop.html#section-3",
+    "href": "workshop.html#section-3",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "",
+    "text": "Step 2: Measure similarity\nFor a shifted play \\(T=1\\), we compare its \\(C\\) to all non-shifted plays \\(T=0\\).\nWe define a notion of “distance” between two plays:\n\nsmaller distance = more similar situations\n\nA common choice is Euclidean distance.\n\n\nmatch_vars &lt;- c(\"pull\", \"lefty\", \"two_strikes\", \"runner1\", \"outs\")\n\nX &lt;- scale(data[, match_vars])\n\ndist_fun &lt;- function(x, Z) {\n  sqrt(rowSums((Z - matrix(x, nrow(Z), length(x), byrow = TRUE))^2))\n}"
+  },
+  {
+    "objectID": "workshop.html#section-4",
+    "href": "workshop.html#section-4",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "",
+    "text": "Step 3: Find the nearest neighbor\nFor each shifted play, find the non-shifted play with the smallest distance in \\(C\\).\n\ntreated_idx &lt;- which(data$T == 1)\ncontrol_idx &lt;- which(data$T == 0)\n\ntreated &lt;- data[treated_idx, ]\ncontrol &lt;- data[control_idx, ]\n\nmatch_index_treated &lt;- sapply(1:nrow(treated), function(i) {\n  x &lt;- X[treated_idx[i], ]\n  dists &lt;- dist_fun(x, X[control_idx, , drop = FALSE])\n  which.min(dists)\n})\n\nmatched_control &lt;- control[match_index_treated, ]\n\nmatch_index_control &lt;- sapply(1:nrow(control), function(i) {\n  x &lt;- X[control_idx[i], ]\n  dists &lt;- dist_fun(x, X[treated_idx, , drop = FALSE])\n  which.min(dists)\n})\n\nmatched_treated &lt;- treated[match_index_control, ]"
+  },
+  {
+    "objectID": "workshop.html#section-5",
+    "href": "workshop.html#section-5",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "",
+    "text": "Step 5: Average over all pairs\nAverage these differences across all matched pairs to estimate the effect of the shift.\n\nlibrary(dplyr)\n\ntreated$effect_hat &lt;- treated$Y - matched_control$Y\ncontrol$effect_hat &lt;- matched_treated$Y - control$Y\n\nmatched_data &lt;- bind_rows(treated, control)\n\nate_match &lt;- mean(matched_data$effect_hat)\n\ntrue_ate &lt;- mean(tau_i)\nc(Matching_ATE = ate_match, True_ATE = true_ate)\n\nMatching_ATE     True_ATE \n -0.08821159  -0.08900000"
+  },
+  {
+    "objectID": "workshop.html#effect-modification-by-batter-handedness",
+    "href": "workshop.html#effect-modification-by-batter-handedness",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "Effect Modification by Batter Handedness",
+    "text": "Effect Modification by Batter Handedness\n\n\nlibrary(dplyr)\n\n# Match within handedness groups\nmatch_vars &lt;- c(\"pull\", \"two_strikes\", \"runner1\", \"outs\")\nX &lt;- scale(data[, match_vars])\n\ndist_fun &lt;- function(x, Z) {\n  sqrt(rowSums((Z - matrix(x, nrow(Z), length(x), byrow = TRUE))^2))\n}\n\n# Left-handed batters\nleft_data &lt;- data %&gt;% filter(lefty == 1)\nleft_treated_idx &lt;- which(data$T == 1 & data$lefty == 1)\nleft_control_idx &lt;- which(data$T == 0 & data$lefty == 1)\n\nmatch_left_treated &lt;- sapply(left_treated_idx, function(i) {\n  dists &lt;- dist_fun(X[i, ], X[left_control_idx, , drop = FALSE])\n  left_control_idx[which.min(dists)]\n})\n\nmatch_left_control &lt;- sapply(left_control_idx, function(i) {\n  dists &lt;- dist_fun(X[i, ], X[left_treated_idx, , drop = FALSE])\n  left_treated_idx[which.min(dists)]\n})\n\nleft_effects &lt;- c(\n  data$Y[left_treated_idx] - data$Y[match_left_treated],\n  data$Y[match_left_control] - data$Y[left_control_idx]\n)\n\n# Right-handed batters\nright_treated_idx &lt;- which(data$T == 1 & data$lefty == 0)\nright_control_idx &lt;- which(data$T == 0 & data$lefty == 0)\n\nmatch_right_treated &lt;- sapply(right_treated_idx, function(i) {\n  dists &lt;- dist_fun(X[i, ], X[right_control_idx, , drop = FALSE])\n  right_control_idx[which.min(dists)]\n})\n\nmatch_right_control &lt;- sapply(right_control_idx, function(i) {\n  dists &lt;- dist_fun(X[i, ], X[right_treated_idx, , drop = FALSE])\n  right_treated_idx[which.min(dists)]\n})\n\nright_effects &lt;- c(\n  data$Y[right_treated_idx] - data$Y[match_right_treated],\n  data$Y[match_right_control] - data$Y[right_control_idx]\n)\n\neffect_by_hand &lt;- tibble(\n  handedness = c(\"Left-handed\", \"Right-handed\"),\n  matched_effect = c(mean(left_effects), mean(right_effects)),\n  true_effect = c(-0.15, -0.05)\n)\n\neffect_by_hand\n\n# A tibble: 2 × 3\n  handedness   matched_effect true_effect\n  &lt;chr&gt;                 &lt;dbl&gt;       &lt;dbl&gt;\n1 Left-handed         -0.162        -0.15\n2 Right-handed        -0.0353       -0.05"
+  },
+  {
+    "objectID": "workshop.html#from-matching-to-weighting",
+    "href": "workshop.html#from-matching-to-weighting",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "From Matching to Weighting",
+    "text": "From Matching to Weighting\nWhat did matching do?\n\nCompare similar situations\nDiscard plays that are too different\n\nWe may throw away a lot of data.\n\nAnother idea\nInstead of discarding data, we can:\n\n keep all plays, but rebalance them \n\nso that shifted and non-shifted plays become comparable overall.\n\n\nHow?\nBy assigning weights to each play.\nThis leads to Inverse Probability Weighting (IPW)."
+  },
+  {
+    "objectID": "workshop.html#inverse-probability-weighting-ipw",
+    "href": "workshop.html#inverse-probability-weighting-ipw",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "Inverse Probability Weighting (IPW)",
+    "text": "Inverse Probability Weighting (IPW)\nKey intuition\nSome plays are more likely to receive the shift than others.\nFor example:\n\nstrong pull hitters → more likely to be shifted\ncertain game situations → more likely to be shifted\n\n\nThis can be measured by the propensity score \\[\nP(T = 1\\mid C)\n\\] Higher propensity score → more likely to be shifted"
+  },
+  {
+    "objectID": "workshop.html#section-6",
+    "href": "workshop.html#section-6",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "",
+    "text": "To make the treated/untreated groups more comparable, we\n\ngive the units in the treated group more weight if they are less likely to be treated,\nand give the units in the untreated group more weight if they are more likely to be treated.\n\nResult\nAfter weighting, the two groups look more similar:\n as if the shift had been assigned more randomly \nConnection to matching\n\nMatching: compare pairs of similar plays\nIPW: adjust the whole dataset"
+  },
+  {
+    "objectID": "workshop.html#ipw-identification-formula",
+    "href": "workshop.html#ipw-identification-formula",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "IPW: Identification Formula",
+    "text": "IPW: Identification Formula\nUnder the assumption that \\[\nT \\perp Y(0), Y(1) \\mid C,\n\\] one can show \\[\\begin{align*}\nE[Y(t)] = E\\left[ \\frac{\\mathbb{I}(T=t)Y}{P(T=t\\mid C)}\\right]\n\\end{align*}\\] Therefore,\n\nto estimate \\(E[Y(1)]\\), we take the weighted average of outcomes in the treated group, where the weight is \\(1/P(T=1\\mid C)\\)\nto estimate \\(E[Y(0)]\\), we take the weighted average of outcomes in the untreated group, where the weight is \\(1/P(T=0\\mid C)\\)."
+  },
+  {
+    "objectID": "workshop.html#ipw-how-the-estimation-works",
+    "href": "workshop.html#ipw-how-the-estimation-works",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "IPW: How the Estimation Works",
+    "text": "IPW: How the Estimation Works\n\nStep 1: Estimate propensity score\nFor each play, estimate the propensity score \\(P(T=1 \\mid C)\\)\n\n\nWe use a logistic regression model for the propensity score:\n\nps_model &lt;- glm(\n  T ~ pull + two_strikes + runner1 + outs + lefty,\n  data = data,\n  family = binomial()\n)\n\ndata$ps &lt;- predict(ps_model, type = \"response\")\n\nhead(data[, c(\"T\", \"pull\", \"two_strikes\", \"runner1\", \"outs\", \"lefty\", \"ps\")])\n\n  T      pull two_strikes runner1 outs lefty        ps\n1 1 0.2875775           0       1    0     1 0.7044649\n2 0 0.7883051           1       0    1     0 0.7685625\n3 0 0.4089769           0       1    0     1 0.7362953\n4 1 0.8830174           0       0    0     1 0.7609908\n5 1 0.9404673           0       0    0     1 0.7743363\n6 0 0.0455565           1       0    0     0 0.6044863"
+  },
+  {
+    "objectID": "workshop.html#section-7",
+    "href": "workshop.html#section-7",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "",
+    "text": "Step 2: Compute weighted averages\n\\[\n\\hat{E}[Y(1)] = \\frac{1}{n} \\sum^n_{i=1} \\frac{\\mathbb{I}(T_i=1) Y_i}{P(T_i=1 \\mid C_i)},\n\\\n\\hat{E}[Y(0)] = \\frac{1}{n} \\sum^n_{i=1} \\frac{\\mathbb{I}(T_i=0) Y_i}{P(T_i=0 \\mid C_i)}\n\\]\n\ndata$w1 &lt;- ifelse(data$T == 1, 1 / data$ps, 0)\ndata$w0 &lt;- ifelse(data$T == 0, 1 / (1 - data$ps), 0)\n\nhead(data[, c(\"T\", \"ps\", \"w1\", \"w0\")])\n\n  T        ps       w1       w0\n1 1 0.7044649 1.419517 0.000000\n2 0 0.7685625 0.000000 4.320821\n3 0 0.7362953 0.000000 3.792120\n4 1 0.7609908 1.314076 0.000000\n5 1 0.7743363 1.291429 0.000000\n6 0 0.6044863 0.000000 2.528357\n\nEY1_hat &lt;- mean(data$T * data$Y / data$ps)\nEY0_hat &lt;- mean((1 - data$T) * data$Y / (1 - data$ps))\n\nc(EY1_hat = EY1_hat, EY0_hat = EY0_hat)\n\n      EY1_hat       EY0_hat \n-5.406473e-05  1.027260e-01"
+  },
+  {
+    "objectID": "workshop.html#section-8",
+    "href": "workshop.html#section-8",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "",
+    "text": "Step 3: Estimate causal effect\n\\[\n\\widehat{ATE} = \\hat{E}[Y(1)] - \\hat{E}[Y(0)]\n\\]\n\nate_ipw &lt;- EY1_hat - EY0_hat\nate_ipw\n\n[1] -0.10278\n\npsi &lt;- data$T * data$Y / data$ps -\n       (1 - data$T) * data$Y / (1 - data$ps)\n\nse_ipw &lt;- sqrt(var(psi) / nrow(data))\n\nse_ipw\n\n[1] 0.03192143\n\nc(\n  True_ATE = true_ate,\n  Matching_ATE = ate_match,\n  IPW_ATE = ate_ipw\n)\n\n    True_ATE Matching_ATE      IPW_ATE \n -0.08900000  -0.08821159  -0.10278005"
+  },
+  {
+    "objectID": "workshop.html#effect-modification-by-batter-handedness-1",
+    "href": "workshop.html#effect-modification-by-batter-handedness-1",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "Effect Modification by Batter Handedness",
+    "text": "Effect Modification by Batter Handedness\n\neffect_by_hand &lt;- data %&gt;%\n  group_by(lefty) %&gt;%\n  summarise(\n    ipw_effect =\n      mean(T * Y / ps) -\n      mean((1 - T) * Y / (1 - ps)),\n    se =\n      sqrt(\n        var(\n          T * Y / ps -\n          (1 - T) * Y / (1 - ps)\n        ) / n()\n      ),\n    .groups = \"drop\"\n  ) %&gt;%\n  mutate(\n    handedness = ifelse(lefty == 1, \"Left-handed\", \"Right-handed\")\n  )\n\neffect_by_hand\n\n# A tibble: 2 × 4\n  lefty ipw_effect     se handedness  \n  &lt;int&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;       \n1     0    -0.0675 0.0335 Right-handed\n2     1    -0.158  0.0628 Left-handed"
+  },
+  {
+    "objectID": "workshop.html#main-result",
+    "href": "workshop.html#main-result",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "Main Result",
+    "text": "Main Result\nAcross methods, the paper finds that the infield shift is effective at preventing runs primarily for left-handed batters.\nFor right-handed batters, the conclusion is more sensitive to assumptions and method choice.\n\n\nWhy This Result Makes Baseball Sense\nThe infield shift is designed partly around pull tendencies.\nBecause the geometry and running structure of baseball are asymmetric, the strategic consequences of shifting can differ by batter handedness.\nSo the handedness-specific result is not only statistically interesting, but also substantively plausible."
+  },
+  {
+    "objectID": "workshop.html#limitations-and-cautions",
+    "href": "workshop.html#limitations-and-cautions",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "Limitations and Cautions",
+    "text": "Limitations and Cautions\nImportant limitations include:\n\nobservational data only\npossible unmeasured confounding (the paper also uses IV to deal with it)\npublic fielding alignment data are coarser than the internal positioning data teams may have\n\nSo causal conclusions remain assumption-dependent."
+  },
+  {
+    "objectID": "workshop.html#take-home-messages",
+    "href": "workshop.html#take-home-messages",
+    "title": "Causal Tools for Sports Analytics: Evaluating Defensive Strategies in MLB",
+    "section": "Take-Home Messages",
+    "text": "Take-Home Messages\n\nEvaluating sports strategy is often a causal inference problem\nThe MLB infield shift is a compelling observational case study\nMatching, weighting, and many other methods provide different routes to causal estimation\nIn this paper, the evidence suggests the shift mainly suppresses runs against left-handed batters"
+  }
+]
