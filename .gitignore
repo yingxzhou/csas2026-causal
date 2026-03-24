@@ -4,12 +4,14 @@
 .RData
 .Ruserdata
 
-# RStudio project file (optional but common)
+# RStudio project file
 *.Rproj
-
-# Quarto / rendered output
-*.html
-*_files/
 
 # Mac system files
 .DS_Store
+
+# Quarto cache (safe to ignore)
+.quarto/
+**/*.quarto_ipynb
+
+/.quarto/

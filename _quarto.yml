@@ -1,0 +1,11 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "CSAS 2026 Causal Workshop"
+
+format:
+  revealjs:
+    theme: default
+    slide-number: true
