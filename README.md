@@ -18,4 +18,4 @@ By the end of the workshop, participants will be able to:
 
 ## Prerequisites
 - Basic familiarity with introductory probability
-- Some exposure to Rsc
+- Some exposure to Rstudio
