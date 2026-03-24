@@ -1,0 +1,105 @@
+/*-- scss:rules --*/
+
+/* Title */
+.reveal .title-slide h1 {
+  font-size: 1.8em;
+  margin-bottom: 1em;
+}
+
+/* Subtitle */
+.reveal .title-slide h2 {
+  font-size: 1.2em;
+  color: #555555;
+  margin-bottom: 1.2em;
+}
+
+/* Author */
+.reveal .title-slide .author {
+  font-size: 1em;
+  margin-top: 0.5em;
+}
+
+/* Institute + date */
+.reveal .title-slide .institute,
+.reveal .title-slide .date {
+  font-size: 0.9em;
+  color: #666666;
+}
+
+/* Overall title slide title */
+.reveal h1 {
+  font-size: 1.6em;
+  line-height: 1.1;
+}
+
+/* Main slide titles (## headings) */
+.reveal h2 {
+  font-size: 1.2em;
+  margin-bottom: 0.25em;
+  line-height: 1.1;
+}
+
+/* Smaller headings within slides (### headings) */
+.reveal h3 {
+  font-size: 1em;
+  margin-top: 0.4em;
+  margin-bottom: 0.2em;
+  line-height: 1.1;
+}
+
+/* Body text */
+.reveal p,
+.reveal li {
+  font-size: 0.9em;
+  line-height: 1.15;
+}
+
+
+/* Bullet list spacing */
+.reveal ul,
+.reveal ol {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+
+.reveal li {
+  margin-bottom: 0.1em;
+}
+
+/* Code blocks */
+.reveal pre code {
+  font-size: 0.75em;
+  line-height: 1.25;
+}
+
+/* Inline code */
+.reveal code {
+  font-size: 0.9em;
+}
+
+/* Slightly narrower content area for cleaner layout */
+.reveal .slides section {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+
+.blue-text {
+  color: #1f4e79;
+}
+
+.red-text {
+  color: #b22222;
+}
+
+.tight-list ul,
+ul.tight-list {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  line-height: 1.05 !important;
+}
+
+.tight-list li,
+ul.tight-list li {
+  margin-bottom: 0.02em !important;
+}

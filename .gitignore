@@ -1,0 +1,15 @@
+# R / RStudio
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+# RStudio project file (optional but common)
+*.Rproj
+
+# Quarto / rendered output
+*.html
+*_files/
+
+# Mac system files
+.DS_Store

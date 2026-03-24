@@ -6,6 +6,9 @@ This workshop introduces core ideas in causal inference through an applied sport
 ## Level
 Advanced
 
+## Main Teaching Material
+Primary paper: *Causal effect of the infield shift in the MLB* by Markes, Wang, Gronsbell, and Evans (2024).
+
 ## Learning Objectives
 By the end of the workshop, participants will be able to:
 1. Explain the difference between association and causation in sports analytics.
