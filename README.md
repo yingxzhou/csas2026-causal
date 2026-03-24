@@ -13,7 +13,7 @@ Primary paper: *Causal effect of the infield shift in the MLB* by Markes, Wang, 
 By the end of the workshop, participants will be able to:
 1. Explain the difference between association and causation in sports analytics.
 2. Describe confounding using the potential outcomes framework and causal diagrams.
-3. Understand the intuition behind matching, weighting, and instrumental variables.
+3. Understand the intuition behind matching and weighting.
 4. Interpret a causal analysis of the MLB infield shift.
 
 ## Prerequisites
